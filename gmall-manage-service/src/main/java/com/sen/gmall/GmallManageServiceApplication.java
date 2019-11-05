@@ -1,4 +1,4 @@
-package com.sen.gmall.manage;
+package com.sen.gmall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css"/>
 	</head>
 	<body>
+		<input type="text" hidden th:value="${skuInfoJsonStr}" id="selectSkuId">
 		<div id="max">
 		<header>
 
@@ -1020,36 +1021,24 @@
         }
 
         function switchSkuId() {
-            // 被选中属性
-            var checkDivs = $(".redborder div");
-            var valueIds="";
-            // 拼接成属性值串
-            for (var i = 0; i < checkDivs.length; i++) {
-                var saleAttrValueDiv = checkDivs.eq(i);
-                if(i>0){
-                    valueIds= valueIds+"|";
-                }
-                valueIds=valueIds+saleAttrValueDiv.attr("value");
-            }
-            //页面上的hashjson
-            var valuesSku = $("#valuesSku").attr("value");
-            var valuesSkuJson=JSON.parse(valuesSku);
+        	//获取页面中的hash表字符串
+			let json = $("#selectSkuId").val();
 
-            // 看看hash有没有
-            var skuId= valuesSkuJson[valueIds];
-            // 当前sku
-            var skuIdSelf=$("#skuId").val();
+			//获取选中的销售属性div对象数组
+			let objs = $(".redborder div");
 
-            // 判断是否跳转
-            if(skuId){
-                if(skuId==skuIdSelf){
-                    $("#cartBtn").attr("class","box-btns-two");
-                }else{
-                    window.location.href="/"+skuId+".html";
-                }
-            }else{
-                $("#cartBtn").attr("class","box-btns-two-off");
-            }
+			//遍历div数组，获取选中销售属性id
+			let k = "";
+			$(objs).each(function (i,e) {
+				k += $(e).attr("value") + "|";
+			})
+
+			//把json字符串转换成hash表
+			let map = JSON.parse(json);
+			let v =  map[k];
+			if (v) {
+				window.location.href = "http://localhost:8082/" + v + ".html";
+			}
         }
 	</script>
 

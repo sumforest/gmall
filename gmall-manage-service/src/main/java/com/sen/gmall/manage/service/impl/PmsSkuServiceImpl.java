@@ -1,6 +1,7 @@
 package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.sen.gmall.api.beans.PmsSkuAttrValue;
 import com.sen.gmall.api.beans.PmsSkuImage;
 import com.sen.gmall.api.beans.PmsSkuInfo;
@@ -10,9 +11,16 @@ import com.sen.gmall.manage.mapper.PmsSkuAttrMapper;
 import com.sen.gmall.manage.mapper.PmsSkuImageMapper;
 import com.sen.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.sen.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
+import com.sen.gmall.util.RedisUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.util.StringUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @Auther: Sen
@@ -33,6 +41,9 @@ public class PmsSkuServiceImpl implements PmsSkuService {
 
     @Autowired
     private PmsSkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Override
     public void saveSkuInfo(PmsSkuInfo pmsSkuInfo) {
@@ -58,8 +69,7 @@ public class PmsSkuServiceImpl implements PmsSkuService {
         }
     }
 
-    @Override
-    public PmsSkuInfo getSkuInfoById(String skuId) {
+    private PmsSkuInfo getSkuInfoByIdFromDB(String skuId) {
         //查询商品对象
         PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
         pmsSkuInfo.setId(skuId);
@@ -71,5 +81,88 @@ public class PmsSkuServiceImpl implements PmsSkuService {
         List<PmsSkuImage> skuImages = skuImageMapper.select(pmsSkuImage);
         skuInfo.setSkuImageList(skuImages);
         return skuInfo;
+    }
+
+    @Override
+    public PmsSkuInfo getSkuInfoById(String skuId){
+
+        PmsSkuInfo pmsSkuInfo ;
+        //获取redis客户端
+        Jedis jedis = redisUtil.getJedis();
+        //设置key
+        String skuKey = "sku:" + skuId + ":info";
+        String skuJson = jedis.get(skuKey);
+
+        //判断redis中有数据
+        if (StringUtils.isNotBlank(skuJson)) {
+            //解析
+            pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
+
+        //redis中不存在数据
+        } else {
+
+            //token用于删除锁前比较value的值，防止误删其他线程的锁
+            String token = UUID.randomUUID().toString();
+            //查询数据前加redis分布式锁
+            String ok = jedis.set("sku:" + skuId + "lock", token, "nx", "ex", 10);
+            //没有上锁
+            if (StringUtils.isNotBlank(ok) && "OK".equals(ok)) {
+                //查询数据库
+                pmsSkuInfo = getSkuInfoByIdFromDB(skuId);
+
+                //值不为空放进缓存
+                if (pmsSkuInfo != null) {
+                    jedis.set("sku:" + skuId + ":info", JSON.toJSONString(pmsSkuInfo));
+
+                //防止缓存穿透
+                } else {
+                    jedis.setex("sku:" + skuId + ":info", 300, "");
+                }
+
+                //删除锁前判断是否为本线程的锁,再删除
+                String lockToken = jedis.get("sku:" + skuId + "lock");
+                if (StringUtils.isNotBlank(lockToken) && lockToken.equals(token)) {
+                    //由于获取value和删除锁的操作不具有原子性，会出现获取value后的一秒内锁过期，
+                    // 误删其他线程的锁的情况，用lua脚本解决
+                    // jedis.eval("lua");
+                    //操作完后释放锁
+                    jedis.del("sku:" + skuId + "lock");
+                }
+
+            //已经上锁,自旋
+            } else{
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //递归，睡眠后重新执行一遍
+                return getSkuInfoById(skuId);
+            }
+
+        }
+        //释放连接
+        jedis.close();
+        return pmsSkuInfo;
+    }
+
+    @Override
+    public Map<String,String> getSkuInfoAndSaleAttrValues(String spuId) {
+        List<PmsSkuInfo> pmsSkuInfos = skuInfoMapper.selectSkuInfoAndSaleAttrValues(spuId);
+
+        //封装hash表
+        Map<String,String> map = new HashMap<>();
+
+        for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
+
+            String v = pmsSkuInfo.getId();
+            StringBuilder k = new StringBuilder();
+
+            for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : pmsSkuInfo.getSkuSaleAttrValueList()) {
+                k.append(pmsSkuSaleAttrValue.getSaleAttrValueId()).append("|");
+            }
+            map.put(k.toString(), v);
+        }
+        return map;
     }
 }

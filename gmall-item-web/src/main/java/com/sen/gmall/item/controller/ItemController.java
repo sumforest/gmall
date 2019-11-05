@@ -1,6 +1,7 @@
 package com.sen.gmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.sen.gmall.api.beans.PmsProductSaleAttr;
 import com.sen.gmall.api.beans.PmsSkuAttrValue;
 import com.sen.gmall.api.beans.PmsSkuInfo;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: Sen
@@ -44,6 +46,11 @@ public class ItemController {
         //封装sku销售属性
         List<PmsProductSaleAttr> productSaleAttrs = spuService.spuSaleAttrListCheckBySku(skuId, pmsSkuInfo.getSpuId());
         modelMap.put("spuSaleAttrListCheckBySku", productSaleAttrs);
+
+        //封装spu下的所有的sku信息和saleAttr信息
+        Map<String,String> map = skuService.getSkuInfoAndSaleAttrValues(pmsSkuInfo.getSpuId());
+        String skuInfoJsonStr = JSON.toJSONString(map);
+        modelMap.put("skuInfoJsonStr", skuInfoJsonStr);
         return "item";
     }
 
