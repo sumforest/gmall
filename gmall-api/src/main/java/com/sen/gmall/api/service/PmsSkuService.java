@@ -16,4 +16,6 @@ public interface PmsSkuService {
     PmsSkuInfo getSkuInfoById(String skuId);
 
     Map<String,String> getSkuInfoAndSaleAttrValues(String spuId);
+
+    List<PmsSkuInfo> getAll();
 }

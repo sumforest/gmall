@@ -11,3 +11,6 @@ gmall-manage-web        8081
 gmall-item-web          8082
 
 gmall-redission-test    8171
+
+gmall-search-service    8072
+gmall-search-web        8083

@@ -165,4 +165,20 @@ public class PmsSkuServiceImpl implements PmsSkuService {
         }
         return map;
     }
+
+    @Override
+    public List<PmsSkuInfo> getAll() {
+        List<PmsSkuInfo> pmsSkuInfos = skuInfoMapper.selectAll();
+
+        //封装PmsSkuAttrValue对象
+        for (PmsSkuInfo pmsSkuInfo : pmsSkuInfos) {
+
+            PmsSkuAttrValue pmsSkuAttrValue = new PmsSkuAttrValue();
+            pmsSkuAttrValue.setSkuId(pmsSkuInfo.getId());
+            List<PmsSkuAttrValue> skuAttrValueList = skuAttrMapper.select(pmsSkuAttrValue);
+            pmsSkuInfo.setSkuAttrValueList(skuAttrValueList);
+
+        }
+        return pmsSkuInfos;
+    }
 }

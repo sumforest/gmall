@@ -1,4 +1,4 @@
-package com.sen.gmall.manage.test;
+package java.com.sen.gmall.manage;
 
 import com.sen.gmall.util.RedisUtil;
 import org.junit.Test;
