@@ -3,6 +3,7 @@ package com.sen.gmall.api.service;
 import com.sen.gmall.api.beans.PmsBaseAttrInfo;
 import com.sen.gmall.api.beans.PmsBaseAttrValue;
 import com.sen.gmall.api.beans.PmsBaseSaleAttr;
+import com.sen.gmall.api.beans.PmsSearchSkuInfo;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface PmsBaseAttrService {
     List<PmsBaseAttrValue> getAttrValueList(String attrId);
 
     List<PmsBaseSaleAttr> getBaseSaleAttrList();
+
+    List<PmsBaseAttrInfo> getSearchAttrAndAttrValues(List<PmsSearchSkuInfo> pmsSearchSkuInfos);
 }

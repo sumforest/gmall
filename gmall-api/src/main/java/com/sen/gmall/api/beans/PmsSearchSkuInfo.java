@@ -7,8 +7,10 @@ import java.util.List;
 
 public class PmsSearchSkuInfo implements Serializable{
 
+    private static final long serialVersionUID = 4972478093411384696L;
+
     @Id
-    private String id;
+    private long id;
     private String skuName;
     private String skuDesc;
     private String catalog3Id;
@@ -18,11 +20,11 @@ public class PmsSearchSkuInfo implements Serializable{
     private String spuId;
     private List<PmsSkuAttrValue> skuAttrValueList;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

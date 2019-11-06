@@ -8,7 +8,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../gmall-parent/pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>gmall-redission-test</artifactId>
+    <artifactId>gmall-redisson-test</artifactId>
     <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>

@@ -1,9 +1,7 @@
 package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.PmsBaseAttrInfo;
-import com.sen.gmall.api.beans.PmsBaseAttrValue;
-import com.sen.gmall.api.beans.PmsBaseSaleAttr;
+import com.sen.gmall.api.beans.*;
 import com.sen.gmall.api.service.PmsBaseAttrService;
 import com.sen.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.sen.gmall.manage.mapper.PmsBaseAttrValueMapper;
@@ -11,7 +9,11 @@ import com.sen.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Auther: Sen
@@ -91,5 +93,27 @@ public class PmsBaseAttrServiceImpl implements PmsBaseAttrService {
     @Override
     public List<PmsBaseSaleAttr> getBaseSaleAttrList() {
         return saleAttrMapper.selectAll();
+    }
+
+    @Override
+    public List<PmsBaseAttrInfo> getSearchAttrAndAttrValues(List<PmsSearchSkuInfo> pmsSearchSkuInfos) {
+        //去掉重复的attrValueId
+        Set<String> attrValueIds = new HashSet<>();
+        for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfos) {
+
+            for (PmsSkuAttrValue pmsSkuAttrValue : pmsSearchSkuInfo.getSkuAttrValueList()) {
+                attrValueIds.add(pmsSkuAttrValue.getValueId());
+            }
+        }
+
+        //拼接查询参数
+        String params = StringUtils.join(attrValueIds, ",");
+
+        List<PmsBaseAttrInfo> baseAttrInfos = new ArrayList<>();
+        if (params.length() > 0) {
+
+            baseAttrInfos  = infoMapper.selectSearchAttrAndAttrValues(params);
+        }
+        return baseAttrInfos;
     }
 }
