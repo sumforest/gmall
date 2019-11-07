@@ -14,3 +14,6 @@ gmall-redission-test    8171
 
 gmall-search-service    8072
 gmall-search-web        8083
+
+gmall-cart-service      8073
+gmall-cart-web          8084
