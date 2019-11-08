@@ -2,6 +2,7 @@ package com.sen.gmall.cart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @Auther: Sen
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @SpringBootApplication
+@ComponentScan(basePackages = "com.sen.gmall")
 public class GmallCartWebApplication {
 
     public static void main(String[] args) {

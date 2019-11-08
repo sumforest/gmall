@@ -17,3 +17,6 @@ gmall-search-web        8083
 
 gmall-cart-service      8073
 gmall-cart-web          8084
+
+gmall-user-service      8070
+gmall-passport-web      8085

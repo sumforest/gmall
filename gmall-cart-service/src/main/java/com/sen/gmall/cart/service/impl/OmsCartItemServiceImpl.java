@@ -11,10 +11,9 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 import tk.mybatis.mapper.entity.Example;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * @Auther: Sen
@@ -59,14 +58,19 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         omsCartItem.setMemberId(memberId);
         List<OmsCartItem> omsCartItems = cartItemMapper.select(omsCartItem);
 
+
         Jedis jedis = null;
         try {
             jedis = redisUtil.getJedis();
             Map<String, String> map = new HashMap<>();
-            for (OmsCartItem cartItem : omsCartItems) {
-                map.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
-            }
 
+            if (omsCartItems != null && omsCartItems.size() > 0) {
+                for (OmsCartItem cartItem : omsCartItems) {
+                    //设置小计价格
+                    cartItem.setTotalPrice(cartItem.getPrice().multiply(new BigDecimal(cartItem.getQuantity())));
+                    map.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
+                }
+            }
             jedis.del("user:" + memberId + ":cart");
             jedis.hmset("user:" + memberId + ":cart", map);
         } catch (Exception e) {
@@ -122,7 +126,16 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
             }
             cartLock.unlock();
         }
-        return cartItems;
+
+        //排序处理
+        cartItems.sort(new Comparator<OmsCartItem>() {
+            @Override
+            public int compare(OmsCartItem o1, OmsCartItem o2) {
+                return Integer.parseInt(o1.getProductSkuId()) - Integer.parseInt(o2.getProductSkuId());
+            }
+
+        });
+       return cartItems;
     }
 
     @Override

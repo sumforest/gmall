@@ -4,6 +4,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 
 public class OmsCartItem implements Serializable{
@@ -218,4 +219,5 @@ public class OmsCartItem implements Serializable{
     public void setProductAttr(String productAttr) {
         this.productAttr = productAttr;
     }
+
 }

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>购物车</title>
     <link rel="icon" href="/img/心04.png" type="/image/x-icon"/>
+    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.css" />
     <link rel="stylesheet" href="/css/One_bdyStyle.css">
     <link rel="stylesheet" href="/css/index.css">
-    <script src="/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/One_mainFoot.css">
-    <link rel="stylesheet" href="/css/font-awesome-4.7.0/css/font-awesome.css" />
+    <script src="/js/jquery-3.1.1.min.js" charset="utf-8"></script>
 </head>
 <body>
 <header>
@@ -168,7 +168,7 @@
 <script type="text/javascript">
 
      function toTrade(){
-         window.location.href="http://cart.gmall.com:8087/toTrade";
+         window.location.href="http://localhost:8084/toTrade";
     }
     function toItem(skuId) {
         window.location.href="http://item.gmall.com:8084/"+skuId+".html";
@@ -235,10 +235,6 @@
     $(".One_ShopFootBuy>div:last-child button").click(function(){
         $(".One_mb").show();
         $(".One_DengLu").show();
-    })
-    //buyNum
-    $(".One_ShopFootBuy>div:nth-child(2)").mouseover(function(){
-        $(this).css("cursor","pointer")
     })
     $(".One_ShopFootBuy>div:nth-child(2)").click(function(){
         $(this).children("ol").toggle();
@@ -446,38 +442,7 @@
         $(".One_mb").show();
         $(".One_clearShop").show()
     })
-    //购物车+ -
-    //鼠标移入变小手
-    $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span").mouseover(function(){
-        $(this).css("cursor","pointer")
-    })
-    //+
-    $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:last-child").click(function(){
-        var add=$(this).prev("span").html();
-        add++;
-        $(this).prev("span").html(add);
-        //总价
-        var dj=$(this).parent().parent().prev().children(".dj").html().substring(1);
-        var sl=$(this).prev("span").html();
-        $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥"+dj*sl+".00")
-        sumSumPrice();
 
-    })
-    //-
-    $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:first-child").click(function(){
-        var jian=$(this).next("span").html();
-        jian--;
-        if(jian<=0){
-            jian=0;
-        }
-        $(this).next("span").html(jian);
-        //总价
-        var dj=$(this).parent().parent().prev().children(".dj").html().substring(1);
-        var sl=$(this).next("span").html();
-        $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥"+dj*sl+".00")
-        sumSumPrice();
-
-    })
     //选中当前商品背景变色
     $(".check").each(function(index){
         $(".check").eq(index).click(function(){
@@ -601,14 +566,6 @@
     $(".nmbd dd:last-child button:last-child").click(function(){
         $(this).parent().parent().slideUp(100)
     })
-
-
-
-
-
-
-
-
 
 
     //active

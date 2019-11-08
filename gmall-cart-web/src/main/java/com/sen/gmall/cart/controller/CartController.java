@@ -6,6 +6,7 @@ import com.sen.gmall.api.beans.OmsCartItem;
 import com.sen.gmall.api.beans.PmsSkuInfo;
 import com.sen.gmall.api.service.OmsCartItemService;
 import com.sen.gmall.api.service.PmsSkuService;
+import com.sen.gmall.web.annotations.LoginRequire;
 import com.sen.gmall.web.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,18 @@ public class CartController {
     @Reference
     private OmsCartItemService cartService;
 
+    @GetMapping("/toTrade")
+    @LoginRequire
+    public String toTrade(HttpServletRequest request) {
+
+        String memberId = (String) request.getAttribute("memberId");
+        String nickname = (String) request.getAttribute("nickname");
+
+        return "tradeTest";
+    }
+
     @RequestMapping("/addToCart")
+    @LoginRequire(loginSuccess = false)
     public String addToCart(String skuId, String quantity,
                             HttpServletRequest request, HttpServletResponse response) {
         //从数据中查询skuInfo
@@ -110,6 +122,7 @@ public class CartController {
     }
 
     @GetMapping("/cartList")
+    @LoginRequire(loginSuccess = false)
     public String toCartList(HttpServletRequest request, ModelMap modelMap) {
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -128,17 +141,28 @@ public class CartController {
             }
         }
 
-        //设置小计价格
-        if (omsCartItems != null && omsCartItems.size() > 0) {
-            for (OmsCartItem omsCartItem : omsCartItems) {
-                omsCartItem.setTotalPrice(omsCartItem.getPrice().multiply(new BigDecimal(omsCartItem.getQuantity())));
-            }
-        }
         modelMap.put("cartList", omsCartItems);
+        modelMap.put("totalAmount", getTotalAmount(omsCartItems));
         return "cartList";
     }
 
+    /**
+     * 计算购物车总价格
+     * @param omsCartItems
+     * @return
+     */
+    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems) {
+        BigDecimal total = new BigDecimal("0");
+        for (OmsCartItem omsCartItem : omsCartItems) {
+            if ("1".equals(omsCartItem.getIsCheck())) {
+                total = omsCartItem.getTotalPrice().add(total);
+            }
+        }
+        return total;
+    }
+
     @PostMapping("checkCart")
+    @LoginRequire(loginSuccess = false)
     public String checkCart(OmsCartItem omsCartItem,ModelMap modelMap) {
         String memberId = "1";
         omsCartItem.setMemberId(memberId);
@@ -147,6 +171,7 @@ public class CartController {
         //从缓存中获取数据
         List<OmsCartItem> cartList = cartService.getCartList(omsCartItem.getMemberId());
 
+        modelMap.put("totalAmount", getTotalAmount(cartList));
         modelMap.put("cartList", cartList);
         return "cartListInner";
     }

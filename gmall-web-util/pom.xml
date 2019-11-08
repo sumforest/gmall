@@ -41,6 +41,11 @@
             <artifactId>batik-ext</artifactId>
         </dependency>
         <!-- thymeleaf end -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
