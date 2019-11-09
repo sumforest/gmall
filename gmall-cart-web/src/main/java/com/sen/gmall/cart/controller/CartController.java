@@ -35,16 +35,6 @@ public class CartController {
     @Reference
     private OmsCartItemService cartService;
 
-    @GetMapping("/toTrade")
-    @LoginRequire
-    public String toTrade(HttpServletRequest request) {
-
-        String memberId = (String) request.getAttribute("memberId");
-        String nickname = (String) request.getAttribute("nickname");
-
-        return "tradeTest";
-    }
-
     @RequestMapping("/addToCart")
     @LoginRequire(loginSuccess = false)
     public String addToCart(String skuId, String quantity,
@@ -64,7 +54,7 @@ public class CartController {
         omsCartItem.setProductName(skuInfo.getSkuName());
 
         //假设用户未登录
-        String memberId = "1";
+        String memberId = (String) request.getAttribute("memberId");;
         if (StringUtils.isBlank(memberId)) {
             //封装购物车cookie
             List<OmsCartItem> cartItems = new ArrayList<>();
@@ -126,7 +116,7 @@ public class CartController {
     public String toCartList(HttpServletRequest request, ModelMap modelMap) {
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
-        String memberId = "1";
+        String memberId = (String) request.getAttribute("memberId");;
         //用户已登录
         if (StringUtils.isNotBlank(memberId)) {
             //从缓存中获取数据
@@ -163,8 +153,8 @@ public class CartController {
 
     @PostMapping("checkCart")
     @LoginRequire(loginSuccess = false)
-    public String checkCart(OmsCartItem omsCartItem,ModelMap modelMap) {
-        String memberId = "1";
+    public String checkCart(OmsCartItem omsCartItem,ModelMap modelMap,HttpServletRequest request) {
+        String memberId = (String) request.getAttribute("memberId");;
         omsCartItem.setMemberId(memberId);
         //修改更新数据库
         cartService.checkCart(omsCartItem);

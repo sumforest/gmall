@@ -20,3 +20,6 @@ gmall-cart-web          8084
 
 gmall-user-service      8070
 gmall-passport-web      8085
+
+gmall-order-service     8074
+gmall-order-web         8086

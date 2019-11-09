@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.sen.gmall.api.beans.*;
 import com.sen.gmall.api.service.PmsBaseAttrService;
 import com.sen.gmall.api.service.SearchService;
+import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +27,7 @@ public class SearchController {
     @Reference
     private PmsBaseAttrService attrService;
 
+    @LoginRequire(loginSuccess = false)
     @GetMapping(value = {"", "index"})
     public String showIndex() {
         return "index";

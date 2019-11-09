@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @Auther: Sen
  * @Date: 2019/11/8 21:41
- * @Description:
+ * @Description: 自定义登录拦截器注解
  */
 @Target(value = ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)

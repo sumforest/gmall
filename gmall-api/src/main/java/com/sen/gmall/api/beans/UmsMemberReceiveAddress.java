@@ -11,7 +11,7 @@ public class UmsMemberReceiveAddress implements Serializable {
     private String memberId;
     private String  name;
     private String  phoneNumber;
-    private int defaultStatus;
+    private Integer defaultStatus;
     private String postCode;
     private String province;
     private String city;
@@ -50,11 +50,11 @@ public class UmsMemberReceiveAddress implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getDefaultStatus() {
+    public Integer getDefaultStatus() {
         return defaultStatus;
     }
 
-    public void setDefaultStatus(int defaultStatus) {
+    public void setDefaultStatus(Integer defaultStatus) {
         this.defaultStatus = defaultStatus;
     }
 
