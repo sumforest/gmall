@@ -38,6 +38,7 @@
         <beanUtils.version>1.9.3</beanUtils.version>
         <redisson.version>3.10.5</redisson.version>
         <jjwt.version>0.9.0</jjwt.version>
+        <alipay.version>3.0.0</alipay.version>
     </properties>
 
     <dependencyManagement>
@@ -154,6 +155,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.version}</version>
             </dependency>
 
         </dependencies>

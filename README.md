@@ -23,3 +23,5 @@ gmall-passport-web      8085
 
 gmall-order-service     8074
 gmall-order-web         8086
+
+gmall-payment           8087

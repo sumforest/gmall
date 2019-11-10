@@ -1,21 +1,19 @@
-package com.sen.gmall.order;
+package com.sen.gmall.payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @Auther: Sen
- * @Date: 2019/11/10 00:13
+ * @Date: 2019/11/10 22:57
  * @Description:
  */
 @SpringBootApplication
-@MapperScan("com.sen.gmall.order.mapper")
 @ComponentScan(basePackages = "com.sen.gmall")
-public class GmallOrderServiceApplication {
+public class GmallPaymentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GmallOrderServiceApplication.class, args);
+        SpringApplication.run(GmallPaymentApplication.class, args);
     }
 }

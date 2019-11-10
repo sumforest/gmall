@@ -46,7 +46,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         //通过验证中心验证token是否有效
         if (StringUtils.isNotBlank(token)) {
-            String decodeMapStr = HttpclientUtil.doGet("http://localhost:8085/verify?token=" + token + "&currentIp=" + ip);
+            String decodeMapStr = HttpclientUtil.doGet("http://passport.gmall.com:8085/verify?token=" + token + "&currentIp=" + ip);
             map = JSON.parseObject(decodeMapStr, Map.class);
             if (map != null) {
                 success = (String) map.get("status");
@@ -63,7 +63,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             } else {
                 //验证不通过踢回验证中心
                 //验证通过回跳原地址
-                response.sendRedirect("http://localhost:8085/login?returnUrl=" + request.getRequestURL());
+                response.sendRedirect("http://passport.gmall.com:8085/login?returnUrl=" + request.getRequestURL());
                 return false;
             }
             // 验证不通过也能操作

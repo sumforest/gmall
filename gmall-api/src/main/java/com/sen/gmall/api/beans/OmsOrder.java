@@ -1,15 +1,19 @@
 package com.sen.gmall.api.beans;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class OmsOrder implements Serializable {
 
     private static final long serialVersionUID = -7832382268336326016L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String memberId;
     private String couponId;
@@ -54,6 +58,15 @@ public class OmsOrder implements Serializable {
     private Date receiveTime;
     private Date commentTime;
     private Date modifyTime;
+    private List<OmsOrderItem> orderItems;
+
+    public List<OmsOrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OmsOrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public String getId() {
         return id;

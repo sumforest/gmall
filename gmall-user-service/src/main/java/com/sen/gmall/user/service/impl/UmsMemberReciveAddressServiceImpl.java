@@ -24,4 +24,12 @@ public class UmsMemberReciveAddressServiceImpl implements UmsMemberReciveAddress
         address.setMemberId(memberId);
         return mapper.select(address);
     }
+
+    @Override
+    public UmsMemberReceiveAddress getDeliveryAddressByAddressId(String addressId) {
+        UmsMemberReceiveAddress address = new UmsMemberReceiveAddress();
+        address.setId(addressId);
+        return mapper.selectOne(address);
+    }
+
 }

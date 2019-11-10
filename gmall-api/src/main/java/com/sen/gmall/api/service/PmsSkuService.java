@@ -2,6 +2,7 @@ package com.sen.gmall.api.service;
 
 import com.sen.gmall.api.beans.PmsSkuInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,4 +19,6 @@ public interface PmsSkuService {
     Map<String,String> getSkuInfoAndSaleAttrValues(String spuId);
 
     List<PmsSkuInfo> getAll();
+
+    boolean checkPrice(String productSkuId, BigDecimal price);
 }

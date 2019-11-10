@@ -3,10 +3,8 @@ package com.sen.gmall.user.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.sen.gmall.api.beans.UmsMember;
-import com.sen.gmall.api.beans.UmsMemberReceiveAddress;
 import com.sen.gmall.api.service.UmsMemberService;
 import com.sen.gmall.user.mapper.UmsMemberMapper;
-import com.sen.gmall.user.mapper.UmsMemberReciveAddressMapper;
 import com.sen.gmall.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
@@ -91,7 +89,8 @@ public class UmsMemberServiceImpl implements UmsMemberService {
     }
 
     @Override
-    public void addMember(UmsMember umsMember) {
+    public String addMember(UmsMember umsMember) {
         umsMemberMapper.insert(umsMember);
+        return umsMember.getId();
     }
 }

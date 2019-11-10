@@ -8,7 +8,7 @@
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../gmall-parent/pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>gmall-order-web</artifactId>
+    <artifactId>gmall-payment</artifactId>
     <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
@@ -27,6 +27,17 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.sen</groupId>
+            <artifactId>gmall-service-util</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -34,7 +45,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sen.gmall.payment.GmallPaymentApplication</mainClass>
+                    <mainClass>com.sen.gamll.passport.GmallPassportWebApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

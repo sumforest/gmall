@@ -1,7 +1,6 @@
 package com.sen.gmall.api.service;
 
 import com.sen.gmall.api.beans.UmsMember;
-import com.sen.gmall.api.beans.UmsMemberReceiveAddress;
 
 import java.util.List;
 
@@ -20,6 +19,6 @@ public interface UmsMemberService {
 
     UmsMember checkAuthMember(String idstr);
 
-    void addMember(UmsMember umsMember);
+    String addMember(UmsMember umsMember);
 
 }

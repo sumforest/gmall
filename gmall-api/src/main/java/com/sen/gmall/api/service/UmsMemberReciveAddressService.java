@@ -11,4 +11,6 @@ import java.util.List;
 public interface UmsMemberReciveAddressService {
 
     List<UmsMemberReceiveAddress> selectByUmsMemberId(String memberId);
+
+    UmsMemberReceiveAddress getDeliveryAddressByAddressId(String addressId);
 }

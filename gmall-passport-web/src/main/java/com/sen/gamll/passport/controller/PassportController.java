@@ -125,7 +125,10 @@ public class PassportController {
             UmsMember authMember = umsMemberService.checkAuthMember(userMap.get("idstr"));
             if (authMember == null) {
                 //不存在插入
-                umsMemberService.addMember(umsMember);
+                String id = umsMemberService.addMember(umsMember);
+                umsMember.setId(id);
+            } else {
+                umsMember = authMember;
             }
 
             //生成jwt
