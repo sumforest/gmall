@@ -13,4 +13,8 @@ public interface OmsOrderService {
     Object createTradeCode(String memberId);
 
     void addOmsOrder(OmsOrder omsOrder);
+
+    OmsOrder getOrderByOutTradeNo(String outTradeNo);
+
+    void updateOrder(String outTradeNo);
 }

@@ -112,6 +112,7 @@ public class OrderController {
             omsOrder.setReceiverPostCode(address.getPostCode());
             omsOrder.setReceiverProvince(address.getProvince());
             omsOrder.setReceiverRegion(address.getRegion());
+            omsOrder.setStatus(0);
             //将订单和订单详情写入数据库，删除购物车里面相应的商品
             orderService.addOmsOrder(omsOrder);
             //重定向到支付系统

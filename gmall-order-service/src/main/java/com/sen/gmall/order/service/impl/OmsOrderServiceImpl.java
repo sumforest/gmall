@@ -6,9 +6,17 @@ import com.sen.gmall.api.beans.OmsOrderItem;
 import com.sen.gmall.api.service.OmsOrderService;
 import com.sen.gmall.order.mapper.OmsOrderItemMapper;
 import com.sen.gmall.order.mapper.OmsOrderMapper;
+import com.sen.gmall.util.ActiveMQUtil;
+import com.sen.gmall.util.ProductMessageUtil;
 import com.sen.gmall.util.RedisUtil;
+import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
+import tk.mybatis.mapper.entity.Example;
+
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Session;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -28,6 +36,9 @@ public class OmsOrderServiceImpl implements OmsOrderService {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private ActiveMQUtil activeMQUtil;
 
     @Override
     public String checkTradeCode(String memberId, String tradeCode) {
@@ -68,6 +79,39 @@ public class OmsOrderServiceImpl implements OmsOrderService {
             orderItem.setOrderId(omsOrder.getId());
             orderItemMapper.insertSelective(orderItem);
             //删除购物车商品详情
+        }
+    }
+
+    @Override
+    public OmsOrder getOrderByOutTradeNo(String outTradeNo) {
+        OmsOrder omsOrder = new OmsOrder();
+        omsOrder.setOrderSn(outTradeNo);
+        return orderMapper.selectOne(omsOrder);
+    }
+
+    @Override
+    public void updateOrder(String outTradeNo) {
+        OmsOrder omsOrder = new OmsOrder();
+        omsOrder.setOrderSn(outTradeNo);
+        omsOrder.setStatus(1);
+        Example example = new Example(OmsOrder.class);
+        example.createCriteria().andEqualTo("orderSn", omsOrder.getOrderSn());
+        Session session = null;
+        try {
+            orderMapper.updateByExampleSelective(omsOrder, example);
+            //通知库存系统
+            MapMessage mapMessage = new ActiveMQMapMessage();
+            mapMessage.setString("test", "test");
+
+            session = ProductMessageUtil.sendMessage(activeMQUtil, mapMessage, "ORDER_PAY_QUEUE");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            try {
+                if (session!= null) session.rollback();
+            } catch (JMSException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

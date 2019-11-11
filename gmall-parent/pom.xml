@@ -39,6 +39,7 @@
         <redisson.version>3.10.5</redisson.version>
         <jjwt.version>0.9.0</jjwt.version>
         <alipay.version>3.0.0</alipay.version>
+        <activemq-pool.version>5.15.2</activemq-pool.version>
     </properties>
 
     <dependencyManagement>
@@ -161,6 +162,18 @@
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-sdk-java</artifactId>
                 <version>${alipay.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-pool</artifactId>
+                <version>${activemq-pool.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
         </dependencies>
