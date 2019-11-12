@@ -1,6 +1,6 @@
 package com.sen.gmall.order.mapper;
 
-import com.sen.gmall.api.beans.OmsOrderItem;
+import com.sen.gmal.api.beans.OmsOrderItem;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

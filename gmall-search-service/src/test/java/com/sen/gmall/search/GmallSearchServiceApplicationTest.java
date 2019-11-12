@@ -1,17 +1,15 @@
 package com.sen.gmall.search;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.PmsSearchSkuInfo;
-import com.sen.gmall.api.beans.PmsSkuInfo;
-import com.sen.gmall.api.service.PmsSkuService;
+import com.sen.gmal.api.beans.PmsSearchSkuInfo;
+import com.sen.gmal.api.beans.PmsSkuInfo;
+import com.sen.gmal.api.service.PmsSkuService;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Test;

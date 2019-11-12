@@ -1,12 +1,10 @@
 package com.sen.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.PmsSkuInfo;
-import com.sen.gmall.api.service.PmsSkuService;
+import com.sen.gmal.api.beans.PmsSkuInfo;
+import com.sen.gmal.api.service.PmsSkuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Auther: Sen

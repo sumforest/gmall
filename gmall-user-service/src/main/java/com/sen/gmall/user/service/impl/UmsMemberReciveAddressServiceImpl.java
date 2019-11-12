@@ -1,8 +1,8 @@
 package com.sen.gmall.user.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.UmsMemberReceiveAddress;
-import com.sen.gmall.api.service.UmsMemberReciveAddressService;
+import com.sen.gmal.api.beans.UmsMemberReceiveAddress;
+import com.sen.gmal.api.service.UmsMemberReciveAddressService;
 import com.sen.gmall.user.mapper.UmsMemberReciveAddressMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;

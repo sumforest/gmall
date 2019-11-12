@@ -1,6 +1,6 @@
 package com.sen.gmall.manage.mapper;
 
-import com.sen.gmall.api.beans.PmsProductImage;
+import com.sen.gmal.api.beans.PmsProductImage;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

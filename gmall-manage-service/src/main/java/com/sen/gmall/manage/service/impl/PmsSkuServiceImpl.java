@@ -2,20 +2,19 @@ package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
-import com.sen.gmall.api.beans.PmsSkuAttrValue;
-import com.sen.gmall.api.beans.PmsSkuImage;
-import com.sen.gmall.api.beans.PmsSkuInfo;
-import com.sen.gmall.api.beans.PmsSkuSaleAttrValue;
-import com.sen.gmall.api.service.PmsSkuService;
+import com.sen.gmal.api.beans.PmsSkuAttrValue;
+import com.sen.gmal.api.beans.PmsSkuImage;
+import com.sen.gmal.api.beans.PmsSkuInfo;
+import com.sen.gmal.api.beans.PmsSkuSaleAttrValue;
+import com.sen.gmal.api.service.PmsSkuService;
 import com.sen.gmall.manage.mapper.PmsSkuAttrMapper;
 import com.sen.gmall.manage.mapper.PmsSkuImageMapper;
-import com.sen.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.sen.gmall.manage.mapper.PmsSkuSaleAttrValueMapper;
+import com.sen.gmall.manage.mapper.PmsSkuInfoMapper;
 import com.sen.gmall.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
-import tk.mybatis.mapper.util.StringUtil;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

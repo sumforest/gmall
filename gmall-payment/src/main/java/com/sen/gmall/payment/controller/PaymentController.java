@@ -5,12 +5,11 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.sen.gmall.api.beans.OmsOrder;
-import com.sen.gmall.api.beans.PaymentInfo;
-import com.sen.gmall.api.service.OmsOrderService;
-import com.sen.gmall.api.service.PaymentService;
+import com.sen.gmal.api.beans.OmsOrder;
+import com.sen.gmal.api.beans.PaymentInfo;
+import com.sen.gmal.api.service.OmsOrderService;
+import com.sen.gmal.api.service.PaymentService;
 import com.sen.gmall.payment.config.AlipayConfig;
-import com.sen.gmall.util.ProductMessageUtil;
 import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +88,7 @@ public class PaymentController {
         paymentInfo.setSubject("尚硅谷谷粒商城iPhone12 512G");
         paymentService.addPayment(paymentInfo);
         //进入支付页面前发送一个延时队列到mq中，查询支付结果
-        paymentService.sendDelayMessageCheckPayResult(outTradeNo);
+        paymentService.sendDelayMessageCheckPayResult(outTradeNo,5);
 
         return form;
     }
@@ -101,7 +100,7 @@ public class PaymentController {
         return null;
     }
 
-    @GetMapping("//alipay/callback/return")
+    @GetMapping("/alipay/callback/return")
     @LoginRequire
     public String AlipayCallBackReturn(HttpServletRequest request) {
         //更新用户的支付信息并保存

@@ -1,6 +1,6 @@
 package com.sen.gmall.manage.mapper;
 
-import com.sen.gmall.api.beans.PmsProductSaleAttr;
+import com.sen.gmal.api.beans.PmsProductSaleAttr;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

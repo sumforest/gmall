@@ -19,6 +19,7 @@ public class RedisUtil {
         jedisPool=new JedisPool(poolConfig,host,port,20*1000);
     }
     public Jedis getJedis(){
-        return jedisPool.getResource();
+        Jedis resource = jedisPool.getResource();
+        return resource;
     }
 }

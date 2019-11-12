@@ -34,7 +34,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sen.gmall.payment.GmallPaymentApplication</mainClass>
+                    <mainClass>GmallPaymentApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

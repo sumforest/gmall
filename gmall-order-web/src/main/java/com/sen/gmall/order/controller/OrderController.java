@@ -1,21 +1,20 @@
 package com.sen.gmall.order.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.OmsCartItem;
-import com.sen.gmall.api.beans.OmsOrder;
-import com.sen.gmall.api.beans.OmsOrderItem;
-import com.sen.gmall.api.beans.UmsMemberReceiveAddress;
-import com.sen.gmall.api.service.OmsCartItemService;
-import com.sen.gmall.api.service.OmsOrderService;
-import com.sen.gmall.api.service.PmsSkuService;
-import com.sen.gmall.api.service.UmsMemberReciveAddressService;
+import com.sen.gmal.api.beans.OmsCartItem;
+import com.sen.gmal.api.beans.OmsOrder;
+import com.sen.gmal.api.beans.OmsOrderItem;
+import com.sen.gmal.api.beans.UmsMemberReceiveAddress;
+import com.sen.gmal.api.service.OmsCartItemService;
+import com.sen.gmal.api.service.OmsOrderService;
+import com.sen.gmal.api.service.PmsSkuService;
+import com.sen.gmal.api.service.UmsMemberReciveAddressService;
 import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -90,7 +89,7 @@ public class OrderController {
             }
             // 封装订单对象
             OmsOrder omsOrder = new OmsOrder();
-            omsOrder.setOrderItems(orderItems);
+            omsOrder.setOmsOrderItems(orderItems);
             omsOrder.setCreateTime(new Date());
             omsOrder.setAutoConfirmDay(7);
             omsOrder.setMemberId(memberId);
@@ -137,12 +136,14 @@ public class OrderController {
         List<OmsOrderItem> orderItems = new ArrayList<>();
         //把购车的品转换成订单实体
         for (OmsCartItem cartItem : cartList) {
-            OmsOrderItem omsOrderItem = new OmsOrderItem();
-            omsOrderItem.setProductName(cartItem.getProductName());
-            omsOrderItem.setProductPrice(cartItem.getPrice());
-            omsOrderItem.setProductPic(cartItem.getProductPic());
-            omsOrderItem.setProductQuantity(cartItem.getQuantity());
-            orderItems.add(omsOrderItem);
+            if ("1".equals(cartItem.getIsCheck())) {
+                OmsOrderItem omsOrderItem = new OmsOrderItem();
+                omsOrderItem.setProductName(cartItem.getProductName());
+                omsOrderItem.setProductPrice(cartItem.getPrice());
+                omsOrderItem.setProductPic(cartItem.getProductPic());
+                omsOrderItem.setProductQuantity(cartItem.getQuantity());
+                orderItems.add(omsOrderItem);
+            }
         }
 
         //生成交易码

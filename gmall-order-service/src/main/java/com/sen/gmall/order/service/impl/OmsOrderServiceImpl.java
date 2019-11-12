@@ -1,9 +1,10 @@
 package com.sen.gmall.order.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.OmsOrder;
-import com.sen.gmall.api.beans.OmsOrderItem;
-import com.sen.gmall.api.service.OmsOrderService;
+import com.alibaba.fastjson.JSON;
+import com.sen.gmal.api.beans.OmsOrder;
+import com.sen.gmal.api.beans.OmsOrderItem;
+import com.sen.gmal.api.service.OmsOrderService;
 import com.sen.gmall.order.mapper.OmsOrderItemMapper;
 import com.sen.gmall.order.mapper.OmsOrderMapper;
 import com.sen.gmall.util.ActiveMQUtil;
@@ -18,6 +19,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Session;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -75,7 +77,7 @@ public class OmsOrderServiceImpl implements OmsOrderService {
     public void addOmsOrder(OmsOrder omsOrder) {
         orderMapper.insertSelective(omsOrder);
         //保存商品详情
-        for (OmsOrderItem orderItem : omsOrder.getOrderItems()) {
+        for (OmsOrderItem orderItem : omsOrder.getOmsOrderItems()) {
             orderItem.setOrderId(omsOrder.getId());
             orderItemMapper.insertSelective(orderItem);
             //删除购物车商品详情
@@ -99,10 +101,19 @@ public class OmsOrderServiceImpl implements OmsOrderService {
         Session session = null;
         try {
             orderMapper.updateByExampleSelective(omsOrder, example);
-            //通知库存系统
+            //查询订单信息，用于封装消息给库存系统
+            OmsOrder orderParam = new OmsOrder();
+            orderParam.setOrderSn(outTradeNo);
+            OmsOrder orderFromDb = orderMapper.selectOne(orderParam);
+            //封装订单详情
+            OmsOrderItem omsOrderItem = new OmsOrderItem();
+            omsOrderItem.setOrderSn(outTradeNo);
+            List<OmsOrderItem> orderItems = orderItemMapper.select(omsOrderItem);
+            orderFromDb.setOmsOrderItems(orderItems);
             MapMessage mapMessage = new ActiveMQMapMessage();
-            mapMessage.setString("test", "test");
+            mapMessage.setString("order", JSON.toJSONString(orderFromDb));
 
+            //通知库存系统
             session = ProductMessageUtil.sendMessage(activeMQUtil, mapMessage, "ORDER_PAY_QUEUE");
         } catch (Exception e) {
             e.printStackTrace();

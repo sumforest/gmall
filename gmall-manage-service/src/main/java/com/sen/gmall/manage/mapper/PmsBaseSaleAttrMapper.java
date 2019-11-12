@@ -1,7 +1,7 @@
 package com.sen.gmall.manage.mapper;
 
 
-import com.sen.gmall.api.beans.PmsBaseSaleAttr;
+import com.sen.gmal.api.beans.PmsBaseSaleAttr;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

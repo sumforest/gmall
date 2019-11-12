@@ -1,6 +1,6 @@
 package com.sen.gmall.manage.mapper;
 
-import com.sen.gmall.api.beans.PmsSkuInfo;
+import com.sen.gmal.api.beans.PmsSkuInfo;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 

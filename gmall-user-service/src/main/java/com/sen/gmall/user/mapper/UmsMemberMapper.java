@@ -1,6 +1,6 @@
 package com.sen.gmall.user.mapper;
 
-import com.sen.gmall.api.beans.UmsMember;
+import com.sen.gmal.api.beans.UmsMember;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

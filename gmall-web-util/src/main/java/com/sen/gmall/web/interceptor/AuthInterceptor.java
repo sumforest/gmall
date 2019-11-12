@@ -2,8 +2,8 @@ package com.sen.gmall.web.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.sen.gmall.common.util.HttpclientUtil;
-import com.sen.gmall.web.annotations.LoginRequire;
 import com.sen.gmall.web.util.CookieUtil;
+import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;

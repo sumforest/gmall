@@ -2,8 +2,8 @@ package com.sen.gmall.user.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
-import com.sen.gmall.api.beans.UmsMember;
-import com.sen.gmall.api.service.UmsMemberService;
+import com.sen.gmal.api.beans.UmsMember;
+import com.sen.gmal.api.service.UmsMemberService;
 import com.sen.gmall.user.mapper.UmsMemberMapper;
 import com.sen.gmall.util.RedisUtil;
 import org.apache.commons.lang3.StringUtils;

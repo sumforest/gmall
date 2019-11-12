@@ -1,11 +1,10 @@
 package com.sen.gmall.order.mq;
 
-import com.sen.gmall.api.service.OmsOrderService;
+import com.sen.gmal.api.service.OmsOrderService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 

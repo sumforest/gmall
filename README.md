@@ -25,3 +25,5 @@ gmall-order-service     8074
 gmall-order-web         8086
 
 gmall-payment           8087
+
+gmall-seckill           8001

@@ -34,7 +34,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sen.gamll.passport.GmallPassportWebApplication</mainClass>
+                    <mainClass>com.sen.gmall.gamll.passport.GmallPassportWebApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

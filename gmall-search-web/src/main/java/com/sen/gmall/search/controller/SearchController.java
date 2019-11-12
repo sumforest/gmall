@@ -1,9 +1,9 @@
 package com.sen.gmall.search.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.*;
-import com.sen.gmall.api.service.PmsBaseAttrService;
-import com.sen.gmall.api.service.SearchService;
+import com.sen.gmal.api.beans.*;
+import com.sen.gmal.api.service.PmsBaseAttrService;
+import com.sen.gmal.api.service.SearchService;
 import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;

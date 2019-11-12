@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sen.gmall.manage.mapper.PmsBaseAttrInfoMapper">
-	<resultMap id="attrAndAttrValuesMap" type="com.sen.gmall.api.beans.PmsBaseAttrInfo" autoMapping="true">
+	<resultMap id="attrAndAttrValuesMap" type="com.sen.gmal.api.beans.PmsBaseAttrInfo" autoMapping="true">
 		<result column="aId" property="id"/>
-		<collection property="attrValueList" ofType="com.sen.gmall.api.beans.PmsBaseAttrValue" autoMapping="true">
+		<collection property="attrValueList" ofType="com.sen.gmal.api.beans.PmsBaseAttrValue" autoMapping="true">
 		<result column="bId" property="id"/>
 		</collection>
 	</resultMap>

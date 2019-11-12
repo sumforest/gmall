@@ -1,6 +1,6 @@
 package com.sen.gmall.cart.mapper;
 
-import com.sen.gmall.api.beans.OmsCartItem;
+import com.sen.gmal.api.beans.OmsCartItem;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

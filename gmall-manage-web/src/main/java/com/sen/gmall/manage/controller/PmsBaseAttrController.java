@@ -1,13 +1,12 @@
 package com.sen.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.PmsBaseAttrInfo;
-import com.sen.gmall.api.beans.PmsBaseAttrValue;
-import com.sen.gmall.api.beans.PmsBaseSaleAttr;
-import com.sen.gmall.api.service.PmsBaseAttrService;
+import com.sen.gmal.api.beans.PmsBaseAttrInfo;
+import com.sen.gmal.api.beans.PmsBaseAttrValue;
+import com.sen.gmal.api.beans.PmsBaseSaleAttr;
+import com.sen.gmal.api.service.PmsBaseAttrService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.awt.SunHints;
 
 import java.util.List;
 

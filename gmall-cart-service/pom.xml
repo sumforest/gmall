@@ -34,7 +34,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.sen.gmall.GmallCartServiceApplication</mainClass>
+                    <mainClass>com.sen.gmall.cart.GmallCartServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

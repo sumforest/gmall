@@ -1,6 +1,6 @@
 package com.sen.gmall.manage.mapper;
 
-import com.sen.gmall.api.beans.PmsSkuImage;
+import com.sen.gmal.api.beans.PmsSkuImage;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

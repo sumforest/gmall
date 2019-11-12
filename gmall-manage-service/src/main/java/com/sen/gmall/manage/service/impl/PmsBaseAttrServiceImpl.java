@@ -1,15 +1,14 @@
 package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.*;
-import com.sen.gmall.api.service.PmsBaseAttrService;
+import com.sen.gmal.api.beans.*;
+import com.sen.gmal.api.service.PmsBaseAttrService;
+import com.sen.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.sen.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.sen.gmall.manage.mapper.PmsBaseAttrValueMapper;
-import com.sen.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

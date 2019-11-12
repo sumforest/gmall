@@ -1,11 +1,10 @@
 package com.sen.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.PmsProductImage;
-import com.sen.gmall.api.beans.PmsProductInfo;
-import com.sen.gmall.api.beans.PmsProductSaleAttr;
-import com.sen.gmall.api.beans.PmsSkuSaleAttrValue;
-import com.sen.gmall.api.service.SpuService;
+import com.sen.gmal.api.beans.PmsProductImage;
+import com.sen.gmal.api.beans.PmsProductInfo;
+import com.sen.gmal.api.beans.PmsProductSaleAttr;
+import com.sen.gmal.api.service.SpuService;
 import com.sen.gmall.manage.util.PmsFileUploadUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

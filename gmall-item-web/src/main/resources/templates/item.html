@@ -262,7 +262,7 @@
 
 						<div class="box-btns clear">
 							<div class="box-btns-one">
-								<form id="itemForm" action="http://localhost:8084/addToCart" method="post">
+								<form id="itemForm" action="http://cart.gmall.com:8084/addToCart" method="post">
 									<input type="text" name="quantity" id=""  value="1"/>
 									<input type="hidden" name="skuId"  th:value="${skuInfo?.id}" />
 
@@ -1037,7 +1037,7 @@
 			let map = JSON.parse(json);
 			let v =  map[k];
 			if (v) {
-				window.location.href = "http://localhost:8082/" + v + ".html";
+				window.location.href = "http://item.gmall.com:8082/" + v + ".html";
 			}
         }
 	</script>

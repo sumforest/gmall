@@ -1,6 +1,6 @@
 package com.sen.gmall.manage.mapper;
 
-import com.sen.gmall.api.beans.PmsSkuSaleAttrValue;
+import com.sen.gmal.api.beans.PmsSkuSaleAttrValue;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

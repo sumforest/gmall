@@ -1,10 +1,10 @@
 package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.PmsBaseCatalog1;
-import com.sen.gmall.api.beans.PmsBaseCatalog2;
-import com.sen.gmall.api.beans.PmsBaseCatalog3;
-import com.sen.gmall.api.service.PmsBaseCatalogService;
+import com.sen.gmal.api.beans.PmsBaseCatalog1;
+import com.sen.gmal.api.beans.PmsBaseCatalog2;
+import com.sen.gmal.api.beans.PmsBaseCatalog3;
+import com.sen.gmal.api.service.PmsBaseCatalogService;
 import com.sen.gmall.manage.mapper.PmsBaseCatalog1Mapper;
 import com.sen.gmall.manage.mapper.PmsBaseCatalog2Mapper;
 import com.sen.gmall.manage.mapper.PmsBaseCatalog3Mapper;

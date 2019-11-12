@@ -2,12 +2,12 @@ package com.sen.gmall.cart.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
-import com.sen.gmall.api.beans.OmsCartItem;
-import com.sen.gmall.api.beans.PmsSkuInfo;
-import com.sen.gmall.api.service.OmsCartItemService;
-import com.sen.gmall.api.service.PmsSkuService;
-import com.sen.gmall.web.annotations.LoginRequire;
+import com.sen.gmal.api.beans.OmsCartItem;
+import com.sen.gmal.api.beans.PmsSkuInfo;
+import com.sen.gmal.api.service.OmsCartItemService;
+import com.sen.gmal.api.service.PmsSkuService;
 import com.sen.gmall.web.util.CookieUtil;
+import com.sen.gmall.web.annotations.LoginRequire;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

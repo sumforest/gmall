@@ -1,14 +1,16 @@
 package com.sen.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.sen.gmall.api.beans.PmsProductImage;
-import com.sen.gmall.api.beans.PmsProductInfo;
-import com.sen.gmall.api.beans.PmsProductSaleAttr;
-import com.sen.gmall.api.beans.PmsProductSaleAttrValue;
-import com.sen.gmall.api.service.SpuService;
-import com.sen.gmall.manage.mapper.*;
+import com.sen.gmal.api.beans.PmsProductImage;
+import com.sen.gmal.api.beans.PmsProductInfo;
+import com.sen.gmal.api.beans.PmsProductSaleAttr;
+import com.sen.gmal.api.beans.PmsProductSaleAttrValue;
+import com.sen.gmal.api.service.SpuService;
+import com.sen.gmall.manage.mapper.PmsProductImageMapper;
+import com.sen.gmall.manage.mapper.PmsProductInfoMapper;
+import com.sen.gmall.manage.mapper.PmsSaleAttrInfoMapper;
+import com.sen.gmall.manage.mapper.PmsSaleAttrValueMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 
 import java.util.List;
 

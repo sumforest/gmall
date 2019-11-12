@@ -6,15 +6,14 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayTradeQueryRequest;
 import com.alipay.api.response.AlipayTradeQueryResponse;
-import com.sen.gmall.api.beans.PaymentInfo;
-import com.sen.gmall.api.service.PaymentService;
+import com.sen.gmal.api.beans.PaymentInfo;
+import com.sen.gmal.api.service.PaymentService;
 import com.sen.gmall.payment.mapper.PaymentMapper;
 import com.sen.gmall.util.ActiveMQUtil;
 import com.sen.gmall.util.ProductMessageUtil;
 import org.apache.activemq.ScheduledMessage;
 import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
 import javax.jms.*;
 import java.util.HashMap;
@@ -44,6 +43,14 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public void updatePayment(PaymentInfo paymentInfo) {
+        //更新前做幂等性检查
+        PaymentInfo paymentInfoParam = new PaymentInfo();
+        paymentInfoParam.setOrderSn(paymentInfo.getAlipayTradeNo());
+        PaymentInfo resultPaymentInfo = paymentMapper.selectOne(paymentInfoParam);
+        if (resultPaymentInfo != null && "已支付".equals(resultPaymentInfo.getPaymentStatus())) {
+            return;
+        }
+
         Example example = new Example(PaymentInfo.class);
         example.createCriteria().andEqualTo("orderSn", paymentInfo.getOrderSn());
 
@@ -51,10 +58,11 @@ public class PaymentServiceImpl implements PaymentService {
         Session session = null;
 
         try {
-            paymentMapper.updateByExample(paymentInfo, example);
+            paymentMapper.updateByExampleSelective(paymentInfo, example);
             //方式消息的参数
             MapMessage mapMessage = new ActiveMQMapMessage();
             mapMessage.setString("outTradeNo", paymentInfo.getOrderSn());
+            //发送消息调用订单服务
             session = ProductMessageUtil.sendMessage(activeMQUtil, mapMessage, "PAYMENT_SUCCESS_QUEUE");
 
         } catch (Exception e) {
@@ -69,12 +77,13 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void sendDelayMessageCheckPayResult(String outTradeNo) {
+    public void sendDelayMessageCheckPayResult(String outTradeNo,int count) {
         MapMessage mapMessage = new ActiveMQMapMessage();
         Session session = null;
         try {
             mapMessage.setString("outTradeNo", outTradeNo);
-            mapMessage.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 1000 * 30);
+            mapMessage.setInt("count", count);
+            mapMessage.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 1000 * 10);
             session = ProductMessageUtil.sendMessage(activeMQUtil, mapMessage, "PAYMENT_CHECK_QUEUE");
         } catch (JMSException e) {
             e.printStackTrace();
@@ -103,10 +112,12 @@ public class PaymentServiceImpl implements PaymentService {
             if (response.isSuccess()) {
                 //调用成功
                 resultMap.put("trade_status", response.getTradeStatus());
+                resultMap.put("out_trade_no", response.getOutTradeNo());
                 resultMap.put("trade_no", response.getTradeNo());
                 resultMap.put("call_back_content", response.getMsg());
             } else {
                 // 调用失败
+                System.out.println("有可能交易未创建，调用失败");
             }
         } catch (AlipayApiException e) {
             e.printStackTrace();

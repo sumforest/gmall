@@ -1,10 +1,10 @@
 package com.sen.gmall.user.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.UmsMember;
-import com.sen.gmall.api.beans.UmsMemberReceiveAddress;
-import com.sen.gmall.api.service.UmsMemberReciveAddressService;
-import com.sen.gmall.api.service.UmsMemberService;
+import com.sen.gmal.api.beans.UmsMember;
+import com.sen.gmal.api.beans.UmsMemberReceiveAddress;
+import com.sen.gmal.api.service.UmsMemberReciveAddressService;
+import com.sen.gmal.api.service.UmsMemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

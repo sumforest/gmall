@@ -1,10 +1,10 @@
 package com.sen.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.sen.gmall.api.beans.PmsBaseCatalog1;
-import com.sen.gmall.api.beans.PmsBaseCatalog2;
-import com.sen.gmall.api.beans.PmsBaseCatalog3;
-import com.sen.gmall.api.service.PmsBaseCatalogService;
+import com.sen.gmal.api.beans.PmsBaseCatalog1;
+import com.sen.gmal.api.beans.PmsBaseCatalog2;
+import com.sen.gmal.api.beans.PmsBaseCatalog3;
+import com.sen.gmal.api.service.PmsBaseCatalogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

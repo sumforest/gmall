@@ -1,6 +1,6 @@
 package com.sen.gmall.payment.mapper;
 
-import com.sen.gmall.api.beans.PaymentInfo;
+import com.sen.gmal.api.beans.PaymentInfo;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
