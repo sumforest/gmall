@@ -1,6 +1,13 @@
 # gmall
 微服务商城
-
+zookeeper + dubbo + tkmybatis + redis + es + activeMQ + vue
+- 商城的文件存储用fastDFS
+- 单点登录
+- 实现了新浪微博社交登录，
+- 支付宝支付接口调用
+- redis以及redisson做分布式锁
+- activeMQ做补偿性分布式事务
+- 前端vue + JavaScript + Thymeleaf + Jquery
 #端口划分
 gmall-user-service      8070
 gmall-user-web          8080
