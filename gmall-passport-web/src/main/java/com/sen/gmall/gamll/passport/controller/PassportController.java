@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @Auther: Sen
  * @Date: 2019/11/8 19:21
- * @Description:
+ * @Description: sso单点登录
  */
 @Controller
 public class PassportController {
@@ -39,8 +39,8 @@ public class PassportController {
     /**
      * 登录生成token
      *
-     * @param member
-     * @return
+     * @param member 登录用户
+     * @return 令牌
      */
     @PostMapping("/login")
     @ResponseBody
@@ -74,8 +74,8 @@ public class PassportController {
     /**
      * oauth2.0新浪微博登录
      *
-     * @param code
-     * @return
+     * @param code 一次性请求码
+     * @return 密钥
      */
     @GetMapping("vlogin")
     public String vlogin(String code,HttpServletRequest request) {
@@ -99,9 +99,9 @@ public class PassportController {
             accessTokenMap = JSON.parseObject(accessToken, Map.class);
             url3 = "https://api.weibo.com/2/users/show.json?access_token="+accessTokenMap.get("access_token")+"&uid="+accessTokenMap.get("uid");
         }
-
         UmsMember umsMember = new UmsMember();
         String userInfoJson = HttpclientUtil.doGet(url3);
+
         //保存了主要的用户信息
         if (StringUtils.isNotBlank(userInfoJson)) {
             Map<String, String> userMap = JSON.parseObject(userInfoJson, Map.class);
@@ -121,7 +121,7 @@ public class PassportController {
             } else {
                 umsMember.setGender(0);
             }
-            //保存微博用户前先查询
+            //保存微博用户前先查询该用户是否存在数据库
             UmsMember authMember = umsMemberService.checkAuthMember(userMap.get("idstr"));
             if (authMember == null) {
                 //不存在插入
@@ -149,7 +149,6 @@ public class PassportController {
                 ip = "127.0.0.1";
             }
         }
-
         String token = JwtUtil.encode("2019/11/9/15:25", map, DigestUtils.md5DigestAsHex(ip.getBytes()));
         //把token写入缓存
         umsMemberService.addToCache(umsMemberLogin.getId(), token);

@@ -111,7 +111,7 @@ public class PmsSkuServiceImpl implements PmsSkuService {
                 pmsSkuInfo = getSkuInfoByIdFromDB(skuId);
 
                 //值不为空放进缓存
-                if (pmsSkuInfo != null) {
+                if (pmsSkuInfo.getId() != null) {
                     jedis.set("sku:" + skuId + ":info", JSON.toJSONString(pmsSkuInfo));
 
                 //防止缓存穿透

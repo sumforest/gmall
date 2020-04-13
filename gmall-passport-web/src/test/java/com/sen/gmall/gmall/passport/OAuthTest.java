@@ -1,7 +1,7 @@
 package com.sen.gmall.gmall.passport;
 
 import com.alibaba.fastjson.JSON;
-import com.sen.gmall.gmall.common.util.HttpclientUtil;
+import com.sen.gmall.common.util.HttpclientUtil;
 import org.junit.Test;
 
 import java.util.Map;

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * @Auther: Sen
  * @Date: 2019/11/10 00:17
- * @Description:
+ * @Description: 订单管理
  */
 @Controller
 public class OrderController {
@@ -44,6 +44,37 @@ public class OrderController {
     @Reference
     private PmsSkuService skuService;
 
+    @GetMapping("/toTrade")
+    @LoginRequire
+    public String toTrade(HttpServletRequest request, ModelMap modelMap) {
+
+        String memberId = (String) request.getAttribute("memberId");
+        //查询用户的地址
+        List<UmsMemberReceiveAddress> addresses = addressService.selectByUmsMemberId(memberId);
+
+        //查询购物车
+        List<OmsCartItem> cartList = cartItemService.getCartList(memberId);
+        List<OmsOrderItem> orderItems = new ArrayList<>();
+        //把购车的品转换成订单实体
+        for (OmsCartItem cartItem : cartList) {
+            if ("1".equals(cartItem.getIsCheck())) {
+                OmsOrderItem omsOrderItem = new OmsOrderItem();
+                omsOrderItem.setProductName(cartItem.getProductName());
+                omsOrderItem.setProductPrice(cartItem.getPrice());
+                omsOrderItem.setProductPic(cartItem.getProductPic());
+                omsOrderItem.setProductQuantity(cartItem.getQuantity());
+                orderItems.add(omsOrderItem);
+            }
+        }
+
+        //生成交易码
+        modelMap.put("tradeCode", orderService.createTradeCode(memberId));
+
+        modelMap.put("orderDetailList", orderItems);
+        modelMap.put("userAddressList", addresses);
+        modelMap.put("totalAmount", calculate(orderItems));
+        return "trade";
+    }
 
     @PostMapping("/submitOrder")
     @LoginRequire
@@ -94,7 +125,7 @@ public class OrderController {
             omsOrder.setAutoConfirmDay(7);
             omsOrder.setMemberId(memberId);
             //总价
-            BigDecimal totalPrice = caculate(orderItems);
+            BigDecimal totalPrice = calculate(orderItems);
             omsOrder.setTotalAmount(totalPrice);
             omsOrder.setMemberUsername(nickname);
             omsOrder.setOrderSn(sn);
@@ -123,44 +154,12 @@ public class OrderController {
         return new ModelAndView("/tradeFail");
     }
 
-    @GetMapping("/toTrade")
-    @LoginRequire
-    public String toTrade(HttpServletRequest request, ModelMap modelMap) {
-
-        String memberId = (String) request.getAttribute("memberId");
-        //查询用户的地址
-        List<UmsMemberReceiveAddress> addresses = addressService.selectByUmsMemberId(memberId);
-
-        //查询购物车
-        List<OmsCartItem> cartList = cartItemService.getCartList(memberId);
-        List<OmsOrderItem> orderItems = new ArrayList<>();
-        //把购车的品转换成订单实体
-        for (OmsCartItem cartItem : cartList) {
-            if ("1".equals(cartItem.getIsCheck())) {
-                OmsOrderItem omsOrderItem = new OmsOrderItem();
-                omsOrderItem.setProductName(cartItem.getProductName());
-                omsOrderItem.setProductPrice(cartItem.getPrice());
-                omsOrderItem.setProductPic(cartItem.getProductPic());
-                omsOrderItem.setProductQuantity(cartItem.getQuantity());
-                orderItems.add(omsOrderItem);
-            }
-        }
-
-        //生成交易码
-        modelMap.put("tradeCode", orderService.createTradeCode(memberId));
-
-        modelMap.put("orderDetailList", orderItems);
-        modelMap.put("userAddressList", addresses);
-        modelMap.put("totalAmount", caculate(orderItems));
-        return "trade";
-    }
-
     @GetMapping("/tradeFail")
     public String toTradeFail() {
         return "tradeFail";
     }
 
-    private BigDecimal caculate(List<OmsOrderItem> orderItems) {
+    private BigDecimal calculate(List<OmsOrderItem> orderItems) {
         //计订单总价
         BigDecimal totalAmount = new BigDecimal("0");
         for (OmsOrderItem orderItem : orderItems) {

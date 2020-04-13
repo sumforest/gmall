@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 登录校验拦截器
+ */
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -35,7 +38,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isNotBlank(newToken)) {
             token = newToken;
         }
-        String success = "fail";
+
         Map<String, Object> map = new HashMap<>();
         String ip = request.getHeader("X-Forwarded-For");
         if (StringUtils.isBlank(ip)) {
@@ -44,6 +47,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 ip = "127.0.0.1";
             }
         }
+
+        String success = "fail";
         //通过验证中心验证token是否有效
         if (StringUtils.isNotBlank(token)) {
             String decodeMapStr = HttpclientUtil.doGet("http://passport.gmall.com:8085/verify?token=" + token + "&currentIp=" + ip);
@@ -52,7 +57,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 success = (String) map.get("status");
             }
         }
-        //需要验证更具注解的值确定分支
+        //需要验证根据注解的值确定分支
         boolean loginSuccess = annotation.loginSuccess();
         //需要验证通过才能操作
         if (loginSuccess) {

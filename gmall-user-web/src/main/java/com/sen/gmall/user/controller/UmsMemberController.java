@@ -24,12 +24,6 @@ public class UmsMemberController {
     @Reference
     private UmsMemberReciveAddressService addressService;
 
-    @GetMapping(value = "")
-    @ResponseBody
-    public String index() {
-        return "hello gmall";
-    }
-
     @GetMapping("list/members")
     @ResponseBody
     public List<UmsMember> listUmsMembers() {

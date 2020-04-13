@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Auther: Sen
  * @Date: 2019/11/2 17:20
- * @Description:
+ * @Description: 平台属性管理
  */
 @Controller
 @CrossOrigin

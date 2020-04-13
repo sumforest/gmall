@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +90,12 @@ public class GmallSearchServiceApplicationTest {
 
         //导入ES
         for (PmsSearchSkuInfo searchSkuInfo : searchSkuInfos) {
-            Index put = new Index.Builder(searchSkuInfo).
-                    index("gmall").type("PmsSkuInfo").id(searchSkuInfo.getId() + "").build();
+            Index put = new Index
+                    .Builder(searchSkuInfo)
+                    .index("gmall")
+                    .type("PmsSkuInfo")
+                    .id(searchSkuInfo.getId() + "")
+                    .build();
             jestClient.execute(put);
         }
     }

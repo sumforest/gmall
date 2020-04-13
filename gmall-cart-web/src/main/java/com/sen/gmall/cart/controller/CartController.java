@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * @Auther: Sen
  * @Date: 2019/11/7 17:52
- * @Description:
+ * @Description: 购物车
  */
 @Controller
 public class CartController {
@@ -35,6 +36,15 @@ public class CartController {
     @Reference
     private OmsCartItemService cartService;
 
+    /**
+     * 添加购物车
+     *
+     * @param skuId    商品库存id
+     * @param quantity 数量
+     * @param request  请求
+     * @param response 响应
+     * @return json信息
+     */
     @RequestMapping("/addToCart")
     @LoginRequire(loginSuccess = false)
     public String addToCart(String skuId, String quantity,
@@ -54,7 +64,8 @@ public class CartController {
         omsCartItem.setProductName(skuInfo.getSkuName());
 
         //假设用户未登录
-        String memberId = (String) request.getAttribute("memberId");;
+        String memberId = (String) request.getAttribute("memberId");
+        ;
         if (StringUtils.isBlank(memberId)) {
             //封装购物车cookie
             List<OmsCartItem> cartItems = new ArrayList<>();
@@ -66,7 +77,7 @@ public class CartController {
 
                 //检查新添加的商品是否已存在
                 boolean isExist = checkIsExist(omsCartItem, cartItems);
-                //如果新增的购物车商品已存在，修改已存在购物车的值
+                //如果新增的购物车商品已存在，修改已存在商品的数量
                 if (isExist) {
                     for (OmsCartItem cookieCartItem : cartItems) {
                         if (cookieCartItem.getProductSkuId().equals(omsCartItem.getProductSkuId())) {
@@ -76,16 +87,10 @@ public class CartController {
                 } else {
                     cartItems.add(omsCartItem);
                 }
-                //覆盖原cookie
-                CookieUtil.setCookie(request, response, "cartItems",
-                        JSON.toJSONString(cartItems
-                        ), 3600 * 3, true);
-
-                //cookie为空直接添加
-            } else {
-                CookieUtil.setCookie(request, response, "cartItems",
-                        JSON.toJSONString(cartItems), 3600 * 3, true);
             }
+            //覆盖原cookie
+            CookieUtil.setCookie(request, response, "cartItems",
+                    JSON.toJSONString(cartItems), 3600 * 3, true);
 
             //用户已登录
         } else {
@@ -116,13 +121,13 @@ public class CartController {
     public String toCartList(HttpServletRequest request, ModelMap modelMap) {
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
-        String memberId = (String) request.getAttribute("memberId");;
+        String memberId = (String) request.getAttribute("memberId");
         //用户已登录
         if (StringUtils.isNotBlank(memberId)) {
             //从缓存中获取数据
             omsCartItems = cartService.getCartList(memberId);
 
-        //用户未登录
+            //用户未登录
         } else {
             //从cookie中获取购物车数据
             String cookieValue = CookieUtil.getCookieValue(request, "cartItems", true);
@@ -138,8 +143,9 @@ public class CartController {
 
     /**
      * 计算购物车总价格
-     * @param omsCartItems
-     * @return
+     *
+     * @param omsCartItems 购物车中所有商品
+     * @return {@link BigDecimal} 总价格
      */
     private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems) {
         BigDecimal total = new BigDecimal("0");
@@ -152,9 +158,9 @@ public class CartController {
     }
 
     @PostMapping("checkCart")
-    @LoginRequire(loginSuccess = false)
-    public String checkCart(OmsCartItem omsCartItem,ModelMap modelMap,HttpServletRequest request) {
-        String memberId = (String) request.getAttribute("memberId");;
+    @LoginRequire
+    public String checkCart(OmsCartItem omsCartItem, ModelMap modelMap, HttpServletRequest request) {
+        String memberId = (String) request.getAttribute("memberId");
         omsCartItem.setMemberId(memberId);
         //修改更新数据库
         cartService.checkCart(omsCartItem);
@@ -165,6 +171,7 @@ public class CartController {
         modelMap.put("cartList", cartList);
         return "cartListInner";
     }
+
     /**
      * 检查当前添加到购物车的商品是否已经存在
      *
@@ -180,6 +187,7 @@ public class CartController {
         ) {
             if (cookieCartItem.getProductSkuId().equals(omsCartItem.getProductSkuId())) {
                 isExist = true;
+                break;
             }
         }
         return isExist;

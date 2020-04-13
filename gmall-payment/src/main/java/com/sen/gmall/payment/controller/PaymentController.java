@@ -46,7 +46,6 @@ public class PaymentController {
     @GetMapping("/index")
     @LoginRequire
     public String toPaymentIndex(String outTradeNo, String totalAmount, HttpServletRequest request, ModelMap modelMap) {
-        String memberId = (String) request.getAttribute("memberId");
         String nickname = (String) request.getAttribute("nickname");
         modelMap.put("orderId", outTradeNo);
         modelMap.put("totalAmount", totalAmount);

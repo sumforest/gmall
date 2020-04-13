@@ -4,10 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.Date;
 
-public class OmsCartItem implements Serializable{
+public class OmsCartItem implements Serializable {
 
     private static final long serialVersionUID = -5189147284086239926L;
     @Id

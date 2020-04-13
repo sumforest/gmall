@@ -22,7 +22,7 @@ public class ActivemqProducerTopicTest {
             Destination topic = session.createTopic("全国十九大");
 
             MessageProducer producer = session.createProducer(topic);
-            TextMessage textMessage=new ActiveMQTextMessage();
+            TextMessage textMessage = new ActiveMQTextMessage();
             textMessage.setText("学习十九大精神");
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             producer.send(textMessage);

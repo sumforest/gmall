@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @Auther: Sen
  * @Date: 2019/11/7 02:33
- * @Description:
+ * @Description: 搜索后的面包屑pojo
  */
 public class PmsSearchCrumb implements Serializable {
 

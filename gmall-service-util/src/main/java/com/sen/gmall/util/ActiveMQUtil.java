@@ -2,7 +2,6 @@ package com.sen.gmall.util;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.pool.PooledConnectionFactory;
-
 import javax.jms.ConnectionFactory;
 
 public class ActiveMQUtil {

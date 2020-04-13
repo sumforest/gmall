@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-
-import javax.jms.JMSException;
 import javax.jms.Session;
 
 @Configuration
@@ -20,7 +18,7 @@ public class ActiveMQConfig {
     String listenerEnable;
 
     @Bean
-    public ActiveMQUtil getActiveMQUtil() throws JMSException {
+    public ActiveMQUtil getActiveMQUtil() {
         if (brokerURL.equals("disabled")) {
             return null;
         }
@@ -57,9 +55,7 @@ public class ActiveMQConfig {
                 url=brokerURL;
             }
         */
-        ActiveMQConnectionFactory activeMQConnectionFactory =
-                new ActiveMQConnectionFactory(brokerURL);
-        return activeMQConnectionFactory;
+        return  new ActiveMQConnectionFactory(brokerURL);
     }
 
 }

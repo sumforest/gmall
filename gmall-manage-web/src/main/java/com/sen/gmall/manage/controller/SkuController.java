@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @Auther: Sen
  * @Date: 2019/11/3 17:54
- * @Description:
+ * @Description: 库存量单位管理
  */
 @Controller
 @CrossOrigin

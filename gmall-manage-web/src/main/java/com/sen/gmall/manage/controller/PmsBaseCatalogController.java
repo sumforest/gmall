@@ -9,13 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 
 /**
  * @Auther: Sen
  * @Date: 2019/11/2 16:31
- * @Description:
+ * @Description: 分类管理
  */
 @Controller
 @CrossOrigin

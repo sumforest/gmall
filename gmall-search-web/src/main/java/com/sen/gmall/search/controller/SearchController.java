@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @Auther: Sen
  * @Date: 2019/11/6 17:45
- * @Description:
+ * @Description: 搜索功能
  */
 @Controller
 public class SearchController {
@@ -87,9 +87,10 @@ public class SearchController {
     }
 
     /**
-     * 创建url
+     * 创建面包屑url
      *
-     * @param pmsSearchParam
+     * @param pmsSearchParam 搜索参数
+     * @param delValueIds 点击删除的面包屑id
      * @return url
      */
     private String getUrlParam(PmsSearchParam pmsSearchParam,String ...delValueIds) {

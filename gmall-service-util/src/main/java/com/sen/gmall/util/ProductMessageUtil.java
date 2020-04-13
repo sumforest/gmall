@@ -5,7 +5,7 @@ import javax.jms.*;
 /**
  * @Auther: Sen
  * @Date: 2019/11/12 00:18
- * @Description:
+ * @Description: 生产消息工具类
  */
 public class ProductMessageUtil {
 
@@ -17,6 +17,7 @@ public class ProductMessageUtil {
             ConnectionFactory connectionFactory = activeMQUtil.getConnectionFactory();
             connection = connectionFactory.createConnection();
             connection.start();
+            //开启事务
             session = connection.createSession(true, Session.SESSION_TRANSACTED);
             Queue payhment_success_queue = session.createQueue(queueName);
             MessageProducer producer = session.createProducer(payhment_success_queue);
@@ -31,6 +32,7 @@ public class ProductMessageUtil {
             e.printStackTrace();
             //事务回滚
             try {
+                assert session != null;
                 session.rollback();
             } catch (JMSException ex) {
                 ex.printStackTrace();

@@ -91,6 +91,7 @@
             if (token ==="fail") {
                 alert("用户名或密码错误");
             } else {
+                //重定向回登陆前页面
                 window.location.href = returnUrl + "?token=" + token;
             }
         });

@@ -58,10 +58,7 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         omsCartItem.setMemberId(memberId);
         List<OmsCartItem> omsCartItems = cartItemMapper.select(omsCartItem);
 
-
-        Jedis jedis = null;
-        try {
-            jedis = redisUtil.getJedis();
+        try (Jedis jedis = redisUtil.getJedis()) {
             Map<String, String> map = new HashMap<>();
 
             if (omsCartItems != null && omsCartItems.size() > 0) {
@@ -75,25 +72,16 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
             jedis.hmset("user:" + memberId + ":cart", map);
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
         }
-
-
     }
 
     @Override
     public List<OmsCartItem> getCartList(String memberId) {
         List<OmsCartItem> cartItems = new ArrayList<>();
-        Jedis jedis = null;
-
         RLock cartLock = redissonClient.getLock("CartLock");
-        //上分布式锁，防止恶意缓存穿透
-        cartLock.lock();
-        try {
-            jedis = redisUtil.getJedis();
+
+        try (Jedis jedis = redisUtil.getJedis()) {
+            //redis 获取集合类型value
             List<String> hvals = jedis.hvals("user:" + memberId + ":cart");
             for (String hval : hvals) {
                 OmsCartItem omsCartItem = JSON.parseObject(hval, OmsCartItem.class);
@@ -102,6 +90,9 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
 
             //缓存中没有数据从数据库中查询
             if (hvals.size() == 0) {
+                //上分布式锁，防止恶意缓存穿透
+                cartLock.lock();
+
                 OmsCartItem omsCartItem = new OmsCartItem();
                 omsCartItem.setMemberId(memberId);
                 cartItems = cartItemMapper.select(omsCartItem);
@@ -114,6 +105,8 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
                         map.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
                     }
                     jedis.hmset("user:" + memberId + ":cart", map);
+
+                    //DB数据为空也做缓存防止缓存穿透
                 } else {
                     jedis.setex("user:" + memberId + ":cart", 300, "");
                 }
@@ -121,30 +114,21 @@ public class OmsCartItemServiceImpl implements OmsCartItemService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
             cartLock.unlock();
         }
 
         //排序处理
-        cartItems.sort(new Comparator<OmsCartItem>() {
-            @Override
-            public int compare(OmsCartItem o1, OmsCartItem o2) {
-                return Integer.parseInt(o1.getProductSkuId()) - Integer.parseInt(o2.getProductSkuId());
-            }
-
-        });
-       return cartItems;
+        cartItems.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getProductSkuId())));
+        return cartItems;
     }
 
     @Override
     public void checkCart(OmsCartItem omsCartItem) {
         Example example = new Example(OmsCartItem.class);
-        example.createCriteria().andEqualTo("memberId", omsCartItem.getMemberId()).
-                andEqualTo("productSkuId", omsCartItem.getProductSkuId());
+        example.createCriteria()
+                .andEqualTo("memberId", omsCartItem.getMemberId())
+                .andEqualTo("productSkuId", omsCartItem.getProductSkuId());
         cartItemMapper.updateByExampleSelective(omsCartItem, example);
-
         //刷新缓存
         flushCache(omsCartItem.getMemberId());
     }

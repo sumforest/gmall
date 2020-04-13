@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Transaction;
-
 import java.util.List;
 
 /**
  * @Auther: Sen
  * @Date: 2019/11/13 02:12
- * @Description:
+ * @Description: redis秒杀测试
  */
 @Controller
 public class SeckillController {
@@ -33,7 +32,9 @@ public class SeckillController {
     @GetMapping("/redissonkill")
     @ResponseBody
     public String redissonkill() {
+        //把商品数量做信号量
         RSemaphore redissonkill = redissonClient.getSemaphore("mate30pro");
+        //尝试上锁
         boolean b = redissonkill.tryAcquire();
         if (b) {
             System.out.println("抢购成功");
@@ -51,10 +52,7 @@ public class SeckillController {
     @ResponseBody
     public String seckill() {
         String memberId = "1";
-        Jedis jedis = null;
-        try {
-
-            jedis = redisUtil.getJedis();
+        try (Jedis jedis = redisUtil.getJedis()) {
             jedis.watch("mate30pro");
             int stock = Integer.parseInt(jedis.get("mate30pro"));
 
@@ -68,12 +66,7 @@ public class SeckillController {
                     System.out.println("抢购失败，剩余库存：" + stock + "请重试");
                 }
             }
-        } finally {
-            if (jedis != null) {
-                jedis.close();
-            }
         }
-
         return "1";
     }
 }

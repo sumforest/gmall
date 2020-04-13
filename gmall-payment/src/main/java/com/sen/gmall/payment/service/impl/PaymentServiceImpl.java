@@ -59,10 +59,10 @@ public class PaymentServiceImpl implements PaymentService {
 
         try {
             paymentMapper.updateByExampleSelective(paymentInfo, example);
-            //方式消息的参数
+            //消息的参数
             MapMessage mapMessage = new ActiveMQMapMessage();
             mapMessage.setString("outTradeNo", paymentInfo.getOrderSn());
-            //发送消息调用订单服务
+            //发送消息调用订单服务更新订单状态
             session = ProductMessageUtil.sendMessage(activeMQUtil, mapMessage, "PAYMENT_SUCCESS_QUEUE");
 
         } catch (Exception e) {
@@ -90,6 +90,7 @@ public class PaymentServiceImpl implements PaymentService {
 
             if (session != null) {
                 try {
+                    //回滚
                     session.rollback();
                 } catch (JMSException ex) {
                     ex.printStackTrace();
