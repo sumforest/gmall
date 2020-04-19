@@ -7,7 +7,7 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/3 18:24
  * @Description:
  */

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/7 17:51
  * @Description:
  */

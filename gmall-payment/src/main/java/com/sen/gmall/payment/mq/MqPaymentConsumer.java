@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/12 03:04
  * @Description: 检查支付宝支付状态延时队列消费者
  */

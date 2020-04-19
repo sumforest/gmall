@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/8 21:41
  * @Description: 自定义登录拦截器注解
  */

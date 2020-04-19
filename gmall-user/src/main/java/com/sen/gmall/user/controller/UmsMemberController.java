@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/10/27 03:49
  * @Description:
  */

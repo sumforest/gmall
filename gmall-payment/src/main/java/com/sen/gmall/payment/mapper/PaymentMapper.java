@@ -4,7 +4,7 @@ import com.sen.gmal.api.beans.PaymentInfo;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/11 16:30
  * @Description:
  */

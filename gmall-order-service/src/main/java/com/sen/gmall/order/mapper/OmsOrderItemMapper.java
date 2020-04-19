@@ -4,7 +4,7 @@ import com.sen.gmal.api.beans.OmsOrderItem;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/10 18:34
  * @Description:
  */

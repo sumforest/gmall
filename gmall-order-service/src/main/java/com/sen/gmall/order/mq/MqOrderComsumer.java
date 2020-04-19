@@ -9,7 +9,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/12 00:35
  * @Description:
  */

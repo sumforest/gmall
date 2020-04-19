@@ -4,7 +4,7 @@ import com.sen.gmal.api.beans.UmsMemberReceiveAddress;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/10/27 16:41
  * @Description:
  */

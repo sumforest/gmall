@@ -6,7 +6,7 @@ import com.sen.gmal.api.beans.PmsSearchParam;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/6 18:45
  * @Description:
  */

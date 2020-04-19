@@ -7,7 +7,7 @@ import com.sen.gmal.api.beans.PmsBaseCatalog3;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/2 16:24
  * @Description:
  */

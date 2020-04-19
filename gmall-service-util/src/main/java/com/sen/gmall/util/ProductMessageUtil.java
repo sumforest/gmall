@@ -3,7 +3,7 @@ package com.sen.gmall.util;
 import javax.jms.*;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/12 00:18
  * @Description: 生产消息工具类
  */

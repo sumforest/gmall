@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/8 19:21
  * @Description: sso单点登录
  */

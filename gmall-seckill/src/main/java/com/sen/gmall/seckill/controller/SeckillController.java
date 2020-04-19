@@ -12,7 +12,7 @@ import redis.clients.jedis.Transaction;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/13 02:12
  * @Description: redis秒杀测试
  */

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/2 16:18
  * @Description:
  */

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/3 17:54
  * @Description: 库存量单位管理
  */

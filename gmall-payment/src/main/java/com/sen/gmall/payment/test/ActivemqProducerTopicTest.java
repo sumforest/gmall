@@ -6,7 +6,7 @@ import org.apache.activemq.command.ActiveMQTextMessage;
 import javax.jms.*;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/11 19:43
  * @Description: 话题生产者
  */

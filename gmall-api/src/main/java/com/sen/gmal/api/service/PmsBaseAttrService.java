@@ -8,7 +8,7 @@ import com.sen.gmal.api.beans.PmsSearchSkuInfo;
 import java.util.List;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/2 17:23
  * @Description:
  */

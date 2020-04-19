@@ -6,7 +6,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/11 19:44
  * @Description: 话题订阅者
  */

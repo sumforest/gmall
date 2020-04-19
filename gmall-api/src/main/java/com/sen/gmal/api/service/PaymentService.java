@@ -5,7 +5,7 @@ import com.sen.gmal.api.beans.PaymentInfo;
 import java.util.Map;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/11 16:24
  * @Description:
  */

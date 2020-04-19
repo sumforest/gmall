@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/3 13:47
  * @Description:
  */

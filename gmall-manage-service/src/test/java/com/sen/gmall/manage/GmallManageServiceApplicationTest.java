@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import redis.clients.jedis.Jedis;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/4 18:51
  * @Description:
  */

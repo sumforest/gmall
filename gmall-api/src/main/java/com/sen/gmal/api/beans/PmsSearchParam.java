@@ -3,7 +3,7 @@ package com.sen.gmal.api.beans;
 import java.io.Serializable;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/6 18:38
  * @Description:
  */

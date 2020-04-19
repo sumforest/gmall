@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.jms.*;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/11 19:34
  * @Description:
  */

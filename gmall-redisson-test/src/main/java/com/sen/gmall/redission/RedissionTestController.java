@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/5 01:14
  * @Description:
  */

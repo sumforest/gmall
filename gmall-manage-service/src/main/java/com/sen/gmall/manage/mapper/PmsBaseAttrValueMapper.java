@@ -4,7 +4,7 @@ import com.sen.gmal.api.beans.PmsBaseAttrValue;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/2 17:27
  * @Description:
  */

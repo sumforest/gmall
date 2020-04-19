@@ -7,7 +7,7 @@ import org.csource.fastdfs.TrackerServer;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/11/3 14:29
  * @Description: 文件上传FastDFS工具类
  */

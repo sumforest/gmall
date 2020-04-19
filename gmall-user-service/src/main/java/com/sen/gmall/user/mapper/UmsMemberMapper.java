@@ -4,7 +4,7 @@ import com.sen.gmal.api.beans.UmsMember;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * @Auther: Sen
+ * @Author: Sen
  * @Date: 2019/10/27 03:49
  * @Description:
  */
