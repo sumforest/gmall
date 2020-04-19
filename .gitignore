@@ -25,3 +25,6 @@ rebel.xml
 ### Other ###
 logs/
 temp/
+
+### Vue ###
+**/node_modules
